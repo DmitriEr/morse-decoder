@@ -39,6 +39,25 @@ const MORSE_TABLE = {
 
 function decode(expr) {
     // write your solution here
+    let str = expr;
+    // делим на массив. одно значение длиной строки 10
+    let arr = str.match(/.{1,10}/g);
+    let word = "";
+    // цикл 
+    for (let i = 0; i < arr.length; i++) {
+      // получем слово сложением букв. Делим каждое значение на массив кратный длины строки 2. Заменяем на . или - или "". Объеденяем.
+      word += MORSE_TABLE[arr[i].match(/.{1,2}/g).map(a => {
+        if (a == "10") {
+          return a = "."
+          } else if (a == "11") {
+            return a = "-"
+            } else {
+                return a = "";
+                }
+        }).reduce((sum, a) => sum += a)];
+      }
+      // ********** == undefined. Разделяем на массив по undefined и объеденяем в строку через пробел
+      return word.split("undefined").join(" ");
 }
 
 module.exports = {
